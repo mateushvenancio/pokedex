@@ -1,3 +1,5 @@
+import 'package:pokedex/stores/pokemon_store.dart';
+
 import 'app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         $AppController,
+        Bind((i) => PokemonStore(), lazy: false),
       ];
 
   @override

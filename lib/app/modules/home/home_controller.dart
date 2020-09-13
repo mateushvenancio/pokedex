@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokedex/stores/pokemon_store.dart';
 
 part 'home_controller.g.dart';
 
@@ -7,11 +8,13 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  @observable
-  int value = 0;
+  final pokemonStore = Modular.get<PokemonStore>();
 
-  @action
-  void increment() {
-    value++;
+  String capitalize(String value) {
+    if (value == null) return '';
+    if (value.length == 0) return '';
+    String newValue = value[0].toUpperCase() + value.substring(1).toLowerCase();
+
+    return newValue;
   }
 }
