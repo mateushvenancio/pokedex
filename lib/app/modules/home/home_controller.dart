@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokedex/stores/moves_store.dart';
 import 'package:pokedex/stores/pokemon_store.dart';
 
 part 'home_controller.g.dart';
@@ -8,6 +9,7 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
+  final movesStore = Modular.get<MovesStore>();
   final pokemonStore = Modular.get<PokemonStore>();
 
   String capitalize(String value) {

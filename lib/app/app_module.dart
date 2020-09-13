@@ -1,3 +1,5 @@
+import 'package:pokedex/app/modules/pokemon_details/pokemon_details_module.dart';
+import 'package:pokedex/stores/moves_store.dart';
 import 'package:pokedex/stores/pokemon_store.dart';
 
 import 'app_controller.dart';
@@ -11,11 +13,13 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         $AppController,
         Bind((i) => PokemonStore(), lazy: false),
+        Bind((i) => MovesStore(), lazy: false),
       ];
 
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, module: HomeModule()),
+        ModularRouter('/pokemon_details', module: PokemonDetailsModule()),
       ];
 
   @override

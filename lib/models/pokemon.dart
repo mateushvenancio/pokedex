@@ -22,7 +22,7 @@ class Pokemon {
       List<Move> _moves = List<Move>();
 
       map['moves'].forEach((e) {
-        _moves.add(Move.fromPokemon(e));
+        _moves.add(Move.fromPokemon(e['move']));
       });
 
       moves = _moves;

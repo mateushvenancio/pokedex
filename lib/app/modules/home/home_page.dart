@@ -35,7 +35,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           return ListView(
             children: controller.pokemonStore.pokemons.map((e) {
               return ListTile(
-                onTap: () {},
+                onTap: () {
+                  Modular.to.pushNamed('/pokemon_details', arguments: e);
+                },
                 leading: Image.network(
                   e.image ??
                       'https://screenshots.gamebanana.com/img/ico/sprays/pokeball.png',
