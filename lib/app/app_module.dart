@@ -1,7 +1,6 @@
 import 'package:pokedex/app/modules/pokemon_details/pokemon_details_module.dart';
-import 'package:pokedex/stores/moves_store.dart';
+import 'package:pokedex/app/modules/splash/splash_module.dart';
 import 'package:pokedex/stores/pokemon_store.dart';
-
 import 'app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +12,12 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         $AppController,
         Bind((i) => PokemonStore(), lazy: false),
-        Bind((i) => MovesStore(), lazy: false),
       ];
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, module: HomeModule()),
+        ModularRouter(Modular.initialRoute, module: SplashModule()),
+        ModularRouter('/home', module: HomeModule()),
         ModularRouter('/pokemon_details', module: PokemonDetailsModule()),
       ];
 

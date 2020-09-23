@@ -24,27 +24,18 @@ mixin _$PokemonStore on _PokemonStoreBase, Store {
     });
   }
 
-  final _$getAllPokemonsAsyncAction =
-      AsyncAction('_PokemonStoreBase.getAllPokemons');
+  final _$_PokemonStoreBaseActionController =
+      ActionController(name: '_PokemonStoreBase');
 
   @override
-  Future getAllPokemons() {
-    return _$getAllPokemonsAsyncAction.run(() => super.getAllPokemons());
-  }
-
-  final _$getPokemonAsyncAction = AsyncAction('_PokemonStoreBase.getPokemon');
-
-  @override
-  Future getPokemon(String url) {
-    return _$getPokemonAsyncAction.run(() => super.getPokemon(url));
-  }
-
-  final _$getPokemonDetailAsyncAction =
-      AsyncAction('_PokemonStoreBase.getPokemonDetail');
-
-  @override
-  Future getPokemonDetail(int id) {
-    return _$getPokemonDetailAsyncAction.run(() => super.getPokemonDetail(id));
+  Pokemon getPokemonByName(String name) {
+    final _$actionInfo = _$_PokemonStoreBaseActionController.startAction(
+        name: '_PokemonStoreBase.getPokemonByName');
+    try {
+      return super.getPokemonByName(name);
+    } finally {
+      _$_PokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

@@ -14,6 +14,12 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
   //use 'controller' variable to access controller
 
   @override
+  void initState() {
+    controller.initApp(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

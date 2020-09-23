@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   void initState() {
-    controller.pokemonStore.getAllPokemons();
     super.initState();
   }
 
@@ -35,19 +34,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           return ListView(
             children: controller.pokemonStore.pokemons.map((e) {
               return ListTile(
-                onTap: () {
-                  Modular.to.pushNamed('/pokemon_details', arguments: e);
-                },
-                leading: Image.network(
-                  e.image ??
-                      'https://screenshots.gamebanana.com/img/ico/sprays/pokeball.png',
+                leading: CircleAvatar(
+                  backgroundImage:
+                      AssetImage('assets/${e.variations[0].image}'),
                 ),
-                title: Text(controller.capitalize(e.name) ?? ''),
-                subtitle: Text(
-                  controller.capitalize(e.type1) +
-                      ' ' +
-                      controller.capitalize(e.type2),
-                ),
+                title: Text(e.name),
               );
             }).toList(),
           );
