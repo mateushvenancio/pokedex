@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/stores/pokemon_store.dart';
 import 'pokemon_details_controller.dart';
 
 class PokemonDetailsPage extends StatefulWidget {
@@ -21,14 +22,19 @@ class _PokemonDetailsPageState
       backgroundColor: controller.store.getTypeColor(
         widget.pokemon.typeofpokemon[0],
       ),
-      // appBar: DetailsAppBar(widget.pokemon.name),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(widget.pokemon.name),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(4),
+                padding: EdgeInsets.all(8),
                 width: double.infinity,
                 child: Material(
                   borderRadius: BorderRadius.circular(8),
@@ -40,8 +46,6 @@ class _PokemonDetailsPageState
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Image.network(widget.pokemon.imageurl, height: 150),
-                        Text(widget.pokemon.name,
-                            style: TextStyle(fontSize: 20)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -81,6 +85,46 @@ class _PokemonDetailsPageState
                             ],
                           ),
                         ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 80,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    widget.pokemon.category,
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                  Text('Category'),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    widget.pokemon.height,
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                  Text('Height'),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    widget.pokemon.weight,
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                  Text('Weight'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -97,7 +141,7 @@ class _PokemonDetailsPageState
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(4),
+                padding: EdgeInsets.all(8),
                 width: double.infinity,
                 child: Material(
                   borderRadius: BorderRadius.circular(8),
@@ -133,26 +177,13 @@ class _PokemonDetailsPageState
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(4),
+                padding: EdgeInsets.all(8),
                 width: double.infinity,
                 child: Material(
                   borderRadius: BorderRadius.circular(8),
                   elevation: 2,
                   color: Colors.white,
-                  child: Container(
-                    height: 150,
-                    padding: const EdgeInsets.all(8.0),
-                    child: widget.pokemon.evolutions.isEmpty
-                        ? Center(child: Text('Doen\'t evolve'))
-                        : ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: widget.pokemon.evolutions.map((e) {
-                              return Image.network(
-                                controller.store.getPokemonByName(e).imageurl,
-                              );
-                            }).toList(),
-                          ),
-                  ),
+                  child: Evolutions(widget.pokemon.evolutions),
                 ),
               ),
             ],
@@ -183,6 +214,66 @@ class StatsBar extends StatelessWidget {
             height: percentage * 3,
           ),
           Text(label),
+        ],
+      ),
+    );
+  }
+}
+
+class Evolutions extends StatelessWidget {
+  final store = Modular.get<PokemonStore>();
+  final List<String> evos;
+
+  Evolutions(this.evos);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> _evos = [];
+
+    if (evos.length != 1) {
+      for (int i = 0; i < evos.length; i++) {
+        var _poke = store.getPokemonByName(evos[i]);
+        _evos.add(EvolutionsTile(_poke));
+
+        // if (evos[i + 1] != null) {
+        //   _evos.add(Icon(Icons.keyboard_arrow_down));
+        // }
+      }
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(children: _evos),
+    );
+  }
+}
+
+class EvolutionsTile extends StatelessWidget {
+  final Pokemon pokemon;
+
+  EvolutionsTile(this.pokemon);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Modular.to.pushNamed('/pokemon_details', arguments: pokemon);
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 125,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Opacity(
+                    opacity: 0.2, child: Image.asset('assets/pokeball.png')),
+                Image.network(pokemon.imageurl),
+              ],
+            ),
+          ),
+          Text(pokemon.reason ?? ''),
         ],
       ),
     );
