@@ -38,7 +38,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               childAspectRatio: 3 / 2,
             ),
             children: controller.pokemonStore.pokemons.map((e) {
-              return PokemonTile(e);
+              return PokemonTile(
+                e,
+                onTap: () {
+                  Modular.to.pushNamed('/pokemon_details', arguments: e);
+                },
+              );
             }).toList(),
           );
         },

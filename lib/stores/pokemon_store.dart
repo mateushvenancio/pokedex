@@ -11,7 +11,7 @@ abstract class _PokemonStoreBase with Store {
 
   @action
   Pokemon getPokemonByName(String name) {
-    return pokemons.firstWhere((element) => element.name == name);
+    return pokemons.firstWhere((e) => e.id == name);
   }
 
   @action
