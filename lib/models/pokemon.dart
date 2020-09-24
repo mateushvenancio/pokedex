@@ -1,127 +1,120 @@
 class Pokemon {
-  int num;
   String name;
-  List<Variations> variations;
-  String link;
-
-  Pokemon({this.num, this.name, this.variations, this.link});
-
-  Pokemon.fromJson(Map<String, dynamic> json) {
-    num = json['num'];
-    name = json['name'];
-    if (json['variations'] != null) {
-      variations = new List<Variations>();
-      json['variations'].forEach((v) {
-        variations.add(new Variations.fromJson(v));
-      });
-    }
-    link = json['link'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['num'] = this.num;
-    data['name'] = this.name;
-    if (this.variations != null) {
-      data['variations'] = this.variations.map((v) => v.toJson()).toList();
-    }
-    data['link'] = this.link;
-    return data;
-  }
-}
-
-class Variations {
-  String name;
-  String description;
-  String image;
-  List<String> types;
-  String specie;
-  num height;
-  num weight;
-  List<String> abilities;
-  Stats stats;
+  String id;
+  String imageurl;
+  String xdescription;
+  String ydescription;
+  String height;
+  String category;
+  String weight;
+  List<String> typeofpokemon;
+  List<String> weaknesses;
   List<String> evolutions;
-
-  Variations(
-      {this.name,
-      this.description,
-      this.image,
-      this.types,
-      this.specie,
-      this.height,
-      this.weight,
-      this.abilities,
-      this.stats,
-      this.evolutions});
-
-  Variations.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    description = json['description'];
-    image = json['image'];
-    types = json['types'].cast<String>();
-    specie = json['specie'];
-    height = json['height'];
-    weight = json['weight'];
-    abilities = json['abilities'].cast<String>();
-    stats = json['stats'] != null ? new Stats.fromJson(json['stats']) : null;
-    evolutions = json['evolutions'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['image'] = this.image;
-    data['types'] = this.types;
-    data['specie'] = this.specie;
-    data['height'] = this.height;
-    data['weight'] = this.weight;
-    data['abilities'] = this.abilities;
-    if (this.stats != null) {
-      data['stats'] = this.stats.toJson();
-    }
-    data['evolutions'] = this.evolutions;
-    return data;
-  }
-}
-
-class Stats {
-  int total;
+  List<String> abilities;
   int hp;
   int attack;
   int defense;
-  int speedAttack;
-  int speedDefense;
+  int specialAttack;
+  int specialDefense;
   int speed;
+  int total;
+  String malePercentage;
+  String femalePercentage;
+  int genderless;
+  String cycles;
+  String eggGroups;
+  String evolvedfrom;
+  String reason;
+  String baseExp;
 
-  Stats(
-      {this.total,
+  Pokemon(
+      {this.name,
+      this.id,
+      this.imageurl,
+      this.xdescription,
+      this.ydescription,
+      this.height,
+      this.category,
+      this.weight,
+      this.typeofpokemon,
+      this.weaknesses,
+      this.evolutions,
+      this.abilities,
       this.hp,
       this.attack,
       this.defense,
-      this.speedAttack,
-      this.speedDefense,
-      this.speed});
+      this.specialAttack,
+      this.specialDefense,
+      this.speed,
+      this.total,
+      this.malePercentage,
+      this.femalePercentage,
+      this.genderless,
+      this.cycles,
+      this.eggGroups,
+      this.evolvedfrom,
+      this.reason,
+      this.baseExp});
 
-  Stats.fromJson(Map<String, dynamic> json) {
-    total = json['total'];
+  Pokemon.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    id = json['id'];
+    imageurl = json['imageurl'];
+    xdescription = json['xdescription'];
+    ydescription = json['ydescription'];
+    height = json['height'];
+    category = json['category'];
+    weight = json['weight'];
+    typeofpokemon = json['typeofpokemon'].cast<String>();
+    weaknesses = json['weaknesses'].cast<String>();
+    evolutions = json['evolutions'].cast<String>();
+    abilities = json['abilities'].cast<String>();
     hp = json['hp'];
     attack = json['attack'];
     defense = json['defense'];
-    speedAttack = json['speedAttack'];
-    speedDefense = json['speedDefense'];
+    specialAttack = json['special_attack'];
+    specialDefense = json['special_defense'];
     speed = json['speed'];
+    total = json['total'];
+    malePercentage = json['male_percentage'];
+    femalePercentage = json['female_percentage'];
+    genderless = json['genderless'];
+    cycles = json['cycles'];
+    eggGroups = json['egg_groups'];
+    evolvedfrom = json['evolvedfrom'];
+    reason = json['reason'];
+    baseExp = json['base_exp'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
+    data['name'] = this.name;
+    data['id'] = this.id;
+    data['imageurl'] = this.imageurl;
+    data['xdescription'] = this.xdescription;
+    data['ydescription'] = this.ydescription;
+    data['height'] = this.height;
+    data['category'] = this.category;
+    data['weight'] = this.weight;
+    data['typeofpokemon'] = this.typeofpokemon;
+    data['weaknesses'] = this.weaknesses;
+    data['evolutions'] = this.evolutions;
+    data['abilities'] = this.abilities;
     data['hp'] = this.hp;
     data['attack'] = this.attack;
     data['defense'] = this.defense;
-    data['speedAttack'] = this.speedAttack;
-    data['speedDefense'] = this.speedDefense;
+    data['special_attack'] = this.specialAttack;
+    data['special_defense'] = this.specialDefense;
     data['speed'] = this.speed;
+    data['total'] = this.total;
+    data['male_percentage'] = this.malePercentage;
+    data['female_percentage'] = this.femalePercentage;
+    data['genderless'] = this.genderless;
+    data['cycles'] = this.cycles;
+    data['egg_groups'] = this.eggGroups;
+    data['evolvedfrom'] = this.evolvedfrom;
+    data['reason'] = this.reason;
+    data['base_exp'] = this.baseExp;
     return data;
   }
 }

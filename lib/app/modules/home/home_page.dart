@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokedex/app/components/pokemon_tile.dart';
 import 'package:pokedex/stores/pokemon_store.dart';
 import 'home_controller.dart';
 
@@ -31,15 +32,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             return Center(
               child: CircularProgressIndicator(),
             );
-          return ListView(
+          return GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+            ),
             children: controller.pokemonStore.pokemons.map((e) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/${e.variations[0].image}'),
-                ),
-                title: Text(e.name),
-              );
+              return PokemonTile(e);
             }).toList(),
           );
         },
